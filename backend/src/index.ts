@@ -3,6 +3,7 @@
  * Agent pipeline (planner, generator, explainer, validator) runs here.
  */
 
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { runPlanner } from "./agent/planner.js";
@@ -21,8 +22,12 @@ function sanitizeIntent(input: string): string {
     .replace(/\{[\s\S]*\}/g, "")
     .trim();
 }
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 app.post("/api/generate", async (req, res) => {
+  console.log("req.body", req.body);
   try {
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
@@ -72,7 +77,7 @@ app.post("/api/generate", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT ?? 3001;
+const PORT = process.env.PORT ?? 2001;
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
 });
