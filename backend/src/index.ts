@@ -15,12 +15,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const INJECTION_PATTERNS = [
+  /ignore\s+(all\s+)?(previous\s+)?(instructions?|rules?|prompts?)/i,
+  /override\s+(your\s+)?(instructions?|rules?|prompts?)/i,
+  /disregard\s+(your\s+)?(instructions?|rules?|prompts?)/i,
+  /forget\s+(your\s+)?(instructions?|rules?|prompts?)/i,
+  /you\s+are\s+now\s+/i,
+  /pretend\s+you\s+are/i,
+  /act\s+as\s+(if\s+)?(a\s+)?(different|new)\s+/i,
+];
+
 function sanitizeIntent(input: string): string {
-  return String(input)
-    .slice(0, 2000)
-    .replace(/<[^>]*>/g, "")
-    .replace(/\{[\s\S]*\}/g, "")
-    .trim();
+  let s = String(input).slice(0, 2000).replace(/<[^>]*>/g, "").replace(/\{[\s\S]*\}/g, "").trim();
+  for (const pat of INJECTION_PATTERNS) {
+    s = s.replace(pat, "[filtered]");
+  }
+  return s;
 }
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });

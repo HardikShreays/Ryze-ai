@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { PreviewErrorBoundary } from "@/components/PreviewErrorBoundary";
 import { api } from "@/lib/api";
 import { renderPlan } from "@/lib/planRenderer";
 import type { StructuredPlan, ValidationError } from "@/lib/types";
@@ -205,7 +206,11 @@ export default function Home() {
                   )}
                 </div>
               )}
-              {plan && !error && renderPlan(plan)}
+              {plan && !error && (
+                <PreviewErrorBoundary>
+                  {renderPlan(plan)}
+                </PreviewErrorBoundary>
+              )}
               {!plan && !error && (
                 <div className="flex h-full items-center justify-center text-gray-500">
                   Enter a description and click Generate
