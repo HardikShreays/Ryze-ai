@@ -60,12 +60,13 @@ function validateComponent(comp: unknown, path: string): ValidationError[] {
     return errors;
   }
 
-  if (!ALLOWED_COMPONENTS.has(type)) {
-    errors.push({ path, message: `Unknown component: ${type}` });
+  const normalizedType = String(type).trim();
+  if (!ALLOWED_COMPONENTS.has(normalizedType)) {
+    errors.push({ path, message: `Unknown component: "${type}". Use only: Button, Card, Input, Table, Modal, Sidebar, Navbar, Chart` });
     return errors;
   }
 
-  const allowed = ALLOWED_PROPS[type];
+  const allowed = ALLOWED_PROPS[normalizedType];
   const props = obj.props;
   if (props !== undefined && props !== null) {
     if (typeof props !== "object") {

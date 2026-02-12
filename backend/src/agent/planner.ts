@@ -37,7 +37,8 @@ Output format:
 }
 
 Rules:
-- Use ONLY allowed components. No inline styles. No custom CSS. No style props.
+- Use ONLY allowed components (Button, Card, Input, Table, Modal, Sidebar, Navbar, Chart). NEVER use Main, MainComponent, Container, or any other component.
+- No inline styles. No custom CSS. No style props.
 - Props must match component schemas:
   - Button: variant ("primary"|"secondary"), label, onClick?
   - Card: title?, description?, children?
