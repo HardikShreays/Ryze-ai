@@ -88,23 +88,30 @@ export default function Home() {
       <div className="flex flex-1 overflow-hidden">
         <aside className="flex w-80 shrink-0 flex-col border-r border-gray-200 bg-white">
           <div className="flex flex-1 flex-col gap-2 overflow-auto p-3">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-gray-800">
               Describe your UI
             </label>
             <textarea
               value={intent}
               onChange={(e) => setIntent(e.target.value)}
               placeholder="e.g. A dashboard with a sidebar, navbar titled Dashboard, and a revenue chart card"
-              className="min-h-24 resize-none rounded-md border border-gray-300 px-3 py-2 text-sm"
+              className="min-h-24 resize-none rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500"
               rows={4}
             />
             <div className="flex gap-2">
               <button
                 onClick={() => runGenerate(false)}
                 disabled={loading || !intent.trim()}
-                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-400"
+                className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors disabled:bg-gray-400"
               >
-                {loading ? "..." : "Generate"}
+                {loading ? (
+                  <>
+                    <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Generating...
+                  </>
+                ) : (
+                  "Generate"
+                )}
               </button>
               <button
                 onClick={() => runGenerate(true)}
@@ -116,15 +123,15 @@ export default function Home() {
             </div>
             {history.length > 0 && (
               <div>
-                <span className="text-xs font-medium text-gray-600">Rollback</span>
+                <span className="text-xs font-semibold text-gray-800">Rollback</span>
                 <div className="mt-1 flex flex-wrap gap-1">
-                  {history.map((v) => (
+                  {history.map((v, i) => (
                     <button
                       key={v.id}
                       onClick={() => handleRollback(v)}
-                      className="rounded bg-gray-200 px-2 py-1 text-xs hover:bg-gray-300"
+                      className="rounded bg-black px-2 py-1 text-xs font-medium text-white transition-colors hover:bg-gray-800"
                     >
-                      {v.id}
+                      v{i + 1}
                     </button>
                   ))}
                 </div>

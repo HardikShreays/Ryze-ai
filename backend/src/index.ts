@@ -27,7 +27,7 @@ app.get("/api/health", (req, res) => {
 });
 
 app.post("/api/generate", async (req, res) => {
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
   try {
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
