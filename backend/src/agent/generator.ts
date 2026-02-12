@@ -6,7 +6,7 @@
  * Uses OpenRouter API (OpenAI-compatible).
  */
 
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 
 const GENERATOR_SYSTEM = `You generate React/JSX code. Use ONLY these imports:
 import { Button, Card, Input, Table, Modal, Sidebar, Navbar, Chart } from "@/components/ui";
@@ -27,7 +27,7 @@ export type GeneratorOutput = {
   code: string;
 };
 
-function createOpenRouterClient(apiKey: string): OpenAI {
+function createOpenRouterClient(apiKey: string) {
   return new OpenAI({
     apiKey,
     baseURL: "https://openrouter.ai/api/v1",

@@ -6,7 +6,7 @@
  * Uses OpenRouter API (OpenAI-compatible).
  */
 
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 
 const EXPLAINER_SYSTEM = `You explain UI design decisions in plain English. Be concise.
 
@@ -24,7 +24,7 @@ export type ExplainerOutput = {
   explanation: string;
 };
 
-function createOpenRouterClient(apiKey: string): OpenAI {
+function createOpenRouterClient(apiKey: string) {
   return new OpenAI({
     apiKey,
     baseURL: "https://openrouter.ai/api/v1",

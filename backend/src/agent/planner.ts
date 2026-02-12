@@ -6,7 +6,7 @@
  * Uses OpenRouter API (OpenAI-compatible).
  */
 
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 
 const ALLOWED_COMPONENTS = [
   "Button",
@@ -59,7 +59,7 @@ export type PlannerOutput = {
   raw: string;
 };
 
-function createOpenRouterClient(apiKey: string): OpenAI {
+function createOpenRouterClient(apiKey: string) {
   return new OpenAI({
     apiKey,
     baseURL: "https://openrouter.ai/api/v1",
